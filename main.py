@@ -4,6 +4,8 @@ import re
 import json
 import csv
 
+MAX_PAGES = 10
+
 servers_home_page = requests.get("https://disboard.org/servers")
 if servers_home_page.status_code != 200:
     raise ValueError("Unable to get Disboard servers list")
@@ -26,7 +28,7 @@ print(f"Fetching 10 pages of {category_name} servers")
 choice = category_name.replace('·', '').replace(' ', '-', 1).lower().replace(' ', '')
 # choice = "anime-manga"
 list_of_servers = []
-for page in range(1,10):
+for page in range(1,MAX_PAGES):
     if page != 1:
         url = "https://disboard.org/servers/category/" + choice + "/" + str(page)
     else:
