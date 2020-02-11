@@ -24,7 +24,7 @@ category = int(input("> "))
 if category > len(categories) or category < 1:
     raise ValueError("invalid Choice.")
 category_name = categories[category-1]
-print(f"Fetching 10 pages of {category_name} servers")
+print(f"Fetching {MAX_PAGES} pages of {category_name} servers")
 choice = category_name.replace('·', '').replace(' ', '-', 1).lower().replace(' ', '')
 # choice = "anime-manga"
 list_of_servers = []
@@ -67,8 +67,10 @@ for server in list_of_servers:
     else:
         print("Failed to compile server info")
         continue
+print("Writing results to file")
 keys = end_result[0].keys()
 with open(f'{category_name} servers.csv', 'w+') as output_file:
     dict_writer = csv.DictWriter(output_file, keys)
     dict_writer.writeheader()
     dict_writer.writerows(end_result)
+print("Done!")
